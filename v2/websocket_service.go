@@ -2,6 +2,7 @@ package binance
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"time"
 
@@ -25,6 +26,9 @@ var (
 
 // getWsEndpoint return the base endpoint of the WS according the UseTestnet flag
 func getWsEndpoint() string {
+	if os.Getenv("GO_BINANCE_WSMAINURL") != "" {
+		return os.Getenv("GO_BINANCE_WSMAINURL")
+	}
 	if UseTestnet {
 		return baseWsTestnetURL
 	}
@@ -33,6 +37,9 @@ func getWsEndpoint() string {
 
 // getCombinedEndpoint return the base endpoint of the combined stream according the UseTestnet flag
 func getCombinedEndpoint() string {
+	if os.Getenv("GO_BINANCE_WSCOMBINEDURL") != "" {
+		return os.Getenv("GO_BINANCE_WSCOMBINEDURL")
+	}
 	if UseTestnet {
 		return baseCombinedTestnetURL
 	}
